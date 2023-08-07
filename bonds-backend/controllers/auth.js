@@ -4,9 +4,10 @@ const User = require('../models/user');
 
 exports.signup = (req, res, next) => {
   const email = req.body.email;
+  const name = req.body.name;
   const password = req.body.password;
   const role = req.body.role;
-
+  
   User.findOne({ email: email }).then(user => {
     if (user) {
       const err = new Error('Email already exists');
@@ -19,15 +20,7 @@ exports.signup = (req, res, next) => {
             email: email,
             name: name,
             password: hashedPassword,
-            contact: contact,
-            isAdmin: false,
-            address: {
-              streetNumber: "",
-              appartment: "",
-              city: "",
-              state: "",
-              pincode: ""
-            }
+            role: role
           });
           return user.save();
         })
@@ -46,9 +39,7 @@ exports.signup = (req, res, next) => {
             token: token,
             userEmail: email,
             userName: name,
-            isAdmin: false,
-            userAddress: result.address,
-            userContact: result.contact
+            userRole: role
           });
         })
         .catch(err => {
@@ -91,8 +82,7 @@ exports.signin = (req, res, next) => {
         userId: loadedUser._id.toString(),
         userName: loadedUser.name,
         userEmail: loadedUser.email,
-        userAddress: loadedUser.address,
-        userContact: loadedUser.contact
+        userRole: loadedUser.role
       });
     })
     .catch(err => {
