@@ -6,7 +6,7 @@ exports.signup = (req, res, next) => {
   const email = req.body.email;
   const name = req.body.name;
   const password = req.body.password;
-  const role = req.body.role;
+  const isAdmin = req.body.isAdmin;
   
   User.findOne({ email: email }).then(user => {
     if (user) {
@@ -20,7 +20,7 @@ exports.signup = (req, res, next) => {
             email: email,
             name: name,
             password: hashedPassword,
-            role: role
+            isAdmin: isAdmin
           });
           return user.save();
         })
@@ -39,7 +39,7 @@ exports.signup = (req, res, next) => {
             token: token,
             userEmail: email,
             userName: name,
-            userRole: role
+            isAdmin: isAdmin
           });
         })
         .catch(err => {
@@ -82,7 +82,7 @@ exports.signin = (req, res, next) => {
         userId: loadedUser._id.toString(),
         userName: loadedUser.name,
         userEmail: loadedUser.email,
-        userRole: loadedUser.role
+        isAdmin: loadedUser.isAdmin
       });
     })
     .catch(err => {
