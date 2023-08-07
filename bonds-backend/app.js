@@ -13,11 +13,10 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-// const authRoutes = require('./routes/auth');
-// const classroomRoutes = require('./routes/classroom');
+const authRoutes = require('./routes/auth');
 
-// app.use('/auth', authRoutes);
-// app.use('/classes', classroomRoutes);
+app.use('/auth', authRoutes);
+
 
 app.use((req, res, next) => {
     const err = new Error("Not Found");
