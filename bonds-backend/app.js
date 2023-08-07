@@ -8,19 +8,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// const authRoutes = require('./routes/auth');
-// const classroomRoutes = require('./routes/classroom');
-
-// app.use('/auth', authRoutes);
-// app.use('/classes', classroomRoutes);
-
-// if ( process.env.NODE_ENV === "production" || 1) { 
-//     app.use(express.static(path.join(__dirname, "../client/build"))); 
-//     app.get("*", (req, res) => { 
-//         res.sendFile(path.resolve(__dirname, '../', 'client', 'build', 'index.html')); 
-//     })
-// }
-
 app.use((req, res, next) => {
     const err = new Error("Not Found");
     err.statusCode = 404;
@@ -47,6 +34,3 @@ mongoose.connect('mongodb+srv://rishikapatwa2002:DBnew2023@cluster0.pyvxnys.mong
 .catch(err => {
     console.log(err);
 })
-
-// https://localhost:5000/auth/login -> post
-// https://localhost:5000/auth/signup -> put
