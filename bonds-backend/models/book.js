@@ -6,14 +6,10 @@ const bookSchema = new Schema({
             type: String,
             required: true
         },
-        bookid: {
-            type: Number,
-            required: true
-        }
     },
     {
         timestamps: true
     }
 )
 
-module.exports = mongoose.model('Books', bookSchema);
+module.exports = mongoose.model('book', bookSchema);
