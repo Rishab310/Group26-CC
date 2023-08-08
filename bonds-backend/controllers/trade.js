@@ -1,17 +1,20 @@
 var express = require('express');
 var router = express.Router();
+var ObjectId = require('mongoose').Types.ObjectId; 
+
 
 // Models
 const Book = require("../models/book");
 const Counterparty = require("../models/counterparty");
 const Security = require("../models/security");
+const User = require("../models/user");
 const Trade = require("../models/trade");
 
 exports.create = async (req, res, next) => {
     // Get request data
     const bookId = req.body.bookId;
     const counterpartyId = req.body.counterpartyId;
-    const securityId = req.body.securityId;
+    const securityISIN = req.body.securityISIN;
     const status = "ACTIVE";
     const price = req.body.price;
     const buy_sell = req.body.buy_sell;
@@ -19,25 +22,25 @@ exports.create = async (req, res, next) => {
     const settlementDate = null; 
     const quantity = req.body.quantity;
     
-    if ([bookId, counterpartyId, securityId, price, buy_sell, tradeDate, quantity].some((val) => !val)) {
+    if ([bookId, counterpartyId, securityISIN, price, buy_sell, tradeDate, quantity].some((val) => !val)) {
         res.status(400).send({"error": "Some parameters are missing in JSON data"});
         return;
     }
     
     // Validate data
-    const book = await Book.findOne({ id: bookId });
+    const book = await Book.findOne({ _id: bookId });
     if (!book) {
         res.status(404).send({"error": "Book does not exist"});
         return;
     }
         
-    const counterParty = await Counterparty.findOne({ id: counterpartyId });
+    const counterParty = await Counterparty.findOne({ _id: counterpartyId });
     if (!counterParty) {
         res.status(404).send({"error": "Counter party does not exist"});
         return;
     }
         
-    const security = await Security.findOne({ id: securityId });
+    const security = await Security.findOne({ ISIN: securityISIN });
     if (!security) {
         res.status(404).send({"error": "Counter party does not exist"});
         return;
@@ -66,7 +69,7 @@ exports.create = async (req, res, next) => {
     const newTrade = new Trade({
         counterpartyId: counterParty._id,
         bookId: book._id,
-        securityId: security._id,
+        securityISIN: securityISIN,
         status: status,
         price: price,
         buy_sell: buy_sell,
@@ -160,4 +163,62 @@ exports.deleteById = async (req, res, next) => {
     }
     
     res.status(200).send(trade);
+}
+
+exports.unsettledTrades = async (req, res, next) => {
+    const currentDate = new Date().toISOString().split('T')[0];
+    
+    // Get user 
+    const email = req.body.email;
+    const user = await User.findOne({ email: email });
+    
+    let trades = [];
+    
+    for (let bookId of user.books) {
+        const book = await Book.findById(bookId);
+        console.log(book.bookname);
+        
+        let bookTrades = await Trade.find({ bookId: new ObjectId(book._id) });
+        trades.push(...bookTrades);
+    }
+    
+    let unsettled = [];
+    
+    for (let trade of trades) {
+        if (trade.settlementDate)
+            continue;
+
+        let security = await Security.findOne({ ISIN: trade.securityISIN, maturityDate: {
+            $lte: currentDate
+        } });
+        if (!security)  
+            continue;
+        
+        console.log(security.maturityDate);
+
+        unsettled.push(trade);
+    }
+    
+    res.status(200).json(unsettled);
+    return;
+}
+
+exports.requestSettlement = async (req, res, next) => {
+    const tradeId = req.body.tradeId;
+    const reason = req.body.reason;
+    
+    let trade = await Trade.findById(tradeId);
+    if (!trade) {
+        res.status(404).json({error: "Trade not found"});
+        return;
+    }
+    
+    trade.reason = reason;
+    trade = await trade.save();
+    if (!trade) {
+        res.status(500).json({error: "Error sending settlement request"});
+    }
+    
+    res.status(200).json(trade);
+    return;
 }

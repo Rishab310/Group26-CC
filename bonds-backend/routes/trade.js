@@ -6,6 +6,9 @@ const tradeController = require('../controllers/trade');
 const isAuth = require('../middlewares/is-auth');
 
 router.post('/create', tradeController.create);
+router.get('/unsettled', tradeController.unsettledTrades);
+router.post('/settle', tradeController.requestSettlement);
+
 router.get('/:id', isAuth, tradeController.getById);
 router.get('/', isAuth, tradeController.getAll);
 router.post('/:id/update', isAuth, tradeController.update);
