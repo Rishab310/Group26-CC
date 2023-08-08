@@ -42,8 +42,7 @@ const tradeSchema = new Schema({
             // required: true
         },
         securityISIN: {
-            type: String,
-            required: true
+            type: String
         },
         reason:{
             type:String,
