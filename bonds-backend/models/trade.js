@@ -34,7 +34,7 @@ const tradeSchema = new Schema({
         },
         Quantity:{
             type:Number,
-            required
+            required: true
         }
     },
     {
@@ -42,4 +42,4 @@ const tradeSchema = new Schema({
     }
 )
 
-module.exports = mongoose.model('trade', userSchema);
+module.exports = mongoose.model('trade', tradeSchema);

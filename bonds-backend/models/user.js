@@ -10,8 +10,8 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    role: {
-        type: String,
+    isAdmin: {
+        type: Boolean,
         required: true
     },
     password: {
@@ -23,6 +23,6 @@ const userSchema = new Schema({
         timestamps: true,
 
     }
-)
+);
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model('User', userSchema);
