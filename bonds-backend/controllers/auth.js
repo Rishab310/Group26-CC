@@ -108,3 +108,23 @@ exports.getUsers = (req, res, next) => {
     res.status(200).json(users);
   })
 }
+
+exports.getAllUsers = (req, res, next) => {
+  User.find({}).then((users) => {
+    res.status(200).json(users);
+  })
+}
+
+exports.getUserById = (req, res, next) => {
+  const id = req.body.id;
+  if (!id) {
+    const err = new Error("id is required!");
+    next(err);
+  }
+  const whereObj = {
+    _id: id
+  };
+  User.find({whereObj}).then((users) => {
+    res.status(200).json(users);
+  })
+}
