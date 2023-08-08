@@ -14,8 +14,14 @@ app.get('/', (req, res) => {
 })
 
 const authRoutes = require('./routes/auth');
+const tradeRoutes = require('./routes/trade');
+const bookRoutes = require('./routes/book');
+const counterpartyRoutes = require('./routes/counterparty');
 
 app.use('/auth', authRoutes);
+app.use('/trade', tradeRoutes);
+app.use('/book', bookRoutes);
+app.use('/counterparty', counterpartyRoutes);
 
 
 app.use((req, res, next) => {

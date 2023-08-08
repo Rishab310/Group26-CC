@@ -10,20 +10,20 @@ const securitySchema = new Schema({
             type: String,
             required: true
         },
-        MaturityDate: {
-            type: date,
+        maturityDate: {
+            type: Date,
             required: true
         },
         coupon: {
-            type: double,
+            type: Number,
             required: true
         },
         type: {
             type: String,
             required: true
         },
-        FaceValue: {
-            type: double,
+        faceValue: {
+            type: Number,
             required: true
         },
         status: {
@@ -36,4 +36,4 @@ const securitySchema = new Schema({
     }
 )
 
-module.exports = mongoose.model('security', securitySchema);
+module.exports = mongoose.model('Security', securitySchema);

@@ -102,3 +102,9 @@ exports.verifyToken = (req, res, next) => {
     next(err);
   }
 }
+
+exports.getUsers = (req, res, next) => {
+  User.find({isAdmin: false}).then((users) => {
+    res.status(200).json(users);
+  })
+}
