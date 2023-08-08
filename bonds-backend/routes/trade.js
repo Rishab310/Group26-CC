@@ -8,6 +8,7 @@ const isAuth = require('../middlewares/is-auth');
 router.post('/create', isAuth, tradeController.create);
 router.get('/:id', isAuth, tradeController.getById);
 router.get('/', isAuth, tradeController.getAll);
+router.post('/:id/update', isAuth, tradeController.update);
 router.post('/delete/:id', isAuth, tradeController.deleteById);
 
 
