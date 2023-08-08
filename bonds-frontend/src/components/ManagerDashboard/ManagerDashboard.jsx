@@ -8,7 +8,7 @@ import Tables from "../tables/Tables";
 import { Navbar } from "./Navbar";
 import { SearchBar } from "./SearchBar";
 
-export const AdminDashboard = () => {
+export const ManagerDashboard = () => {
   const bookNumberAndTradesData = [
     { book: "Book 1", trades: 10 },
     { book: "Book 2", trades: 15 },
