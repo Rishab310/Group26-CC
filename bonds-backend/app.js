@@ -16,12 +16,14 @@ app.get('/', (req, res) => {
 const authRoutes = require('./routes/auth');
 const tradeRoutes = require('./routes/trade');
 const bookRoutes = require('./routes/book');
+const bookUserRoutes = require('./routes/bookuser');
 const counterpartyRoutes = require('./routes/counterparty');
 const securityRoutes = require('./routes/security');
 
 app.use('/auth', authRoutes);
 app.use('/trade', tradeRoutes);
 app.use('/book', bookRoutes);
+app.use('/bookuser', bookUserRoutes);
 app.use('/counterparty', counterpartyRoutes);
 app.use('/security', securityRoutes);
 

@@ -3,7 +3,6 @@ var router = express.Router();
 
 // Models
 const Book = require("../models/book");
-const BookUser = require("../models/bookuser");
 const Counterparty = require("../models/counterparty");
 const Security = require("../models/security");
 const Trade = require("../models/trade");
