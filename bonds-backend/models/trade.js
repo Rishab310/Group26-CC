@@ -35,6 +35,11 @@ const tradeSchema = new Schema({
         quantity:{
             type: Number,
             required: true
+        },
+        securityId: {
+            type: Schema.Types.ObjectId,
+            ref: 'Security',
+            required: true
         }
     },
     {
