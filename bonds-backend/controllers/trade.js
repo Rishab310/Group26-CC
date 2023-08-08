@@ -19,54 +19,54 @@ exports.create = async (req, res, next) => {
     const settlementDate = req.body.settlementDate; 
     const quantity = req.body.quantity;
     
-    if ([bookId, counterpartyId, securityId, price, buy_sell, tradeDate, quantity].some((val) => !val)) {
-        res.status(400).send({"error": "Some parameters are missing in JSON data"});
-        return;
-    }
+    // if ([bookId, counterpartyId, securityId, price, buy_sell, tradeDate, quantity].some((val) => !val)) {
+    //     res.status(400).send({"error": "Some parameters are missing in JSON data"});
+    //     return;
+    // }
     
-    // Validate data
-    const book = await Book.findOne({ id: bookId });
-    if (!book) {
-        res.status(404).send({"error": "Book does not exist"});
-        return;
-    }
+    // // Validate data
+    // const book = await Book.findOne({ id: bookId });
+    // if (!book) {
+    //     res.status(404).send({"error": "Book does not exist"});
+    //     return;
+    // }
         
-    const counterParty = await Counterparty.findOne({ id: counterpartyId });
-    if (!counterParty) {
-        res.status(404).send({"error": "Counter party does not exist"});
-        return;
-    }
+    // const counterParty = await Counterparty.findOne({ id: counterpartyId });
+    // if (!counterParty) {
+    //     res.status(404).send({"error": "Counter party does not exist"});
+    //     return;
+    // }
         
-    const security = await Security.findOne({ id: securityId });
-    if (!security) {
-        res.status(404).send({"error": "Counter party does not exist"});
-        return;
-    }
+    // const security = await Security.findOne({ id: securityId });
+    // if (!security) {
+    //     res.status(404).send({"error": "Counter party does not exist"});
+    //     return;
+    // }
         
-    if (buy_sell !== "BUY" && buy_sell !== "SELL") {
-        res.status(400).send({"error": "buy_sell should be equal to either BUY or SELL"});
-        return;
-    }
+    // if (buy_sell !== "BUY" && buy_sell !== "SELL") {
+    //     res.status(400).send({"error": "buy_sell should be equal to either BUY or SELL"});
+    //     return;
+    // }
         
-    if (quantity <= 0) {
-        res.status(400).send({"error": "Quantity should be greater than 0"});
-        return;
-    }
+    // if (quantity <= 0) {
+    //     res.status(400).send({"error": "Quantity should be greater than 0"});
+    //     return;
+    // }
     
-    if (price <= 0) {
-        res.status(400).send({"error": "Price should be greater than 0"});
-        return;
-    }
+    // if (price <= 0) {
+    //     res.status(400).send({"error": "Price should be greater than 0"});
+    //     return;
+    // }
     
-    if (isNaN(tradeDate)) {
-        res.status(400).send({"error": "Trade date is invalid"});
-        return;
-    }
+    // if (isNaN(tradeDate)) {
+    //     res.status(400).send({"error": "Trade date is invalid"});
+    //     return;
+    // }
     
     const newTrade = new Trade({
-        counterpartyId: counterParty._id,
-        bookId: book._id,
-        securityId: security._id,
+        counterpartyId: counterpartyId,
+        bookId: bookId,
+        securityId: securityId,
         status: status,
         price: price,
         buy_sell: buy_sell,
