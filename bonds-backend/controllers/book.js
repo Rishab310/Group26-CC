@@ -63,6 +63,22 @@ exports.create = async (req, res, next) => {
     res.status(201).json(newBook);
 }
 
+exports.getTrades = async (req, res, next) => {
+    const bookId = req.params.id;
+    if (!bookId) {
+        res.status(405).json({ error: 'Book id is required' });
+        return;
+    }
+    
+    const book = await Book.findById(bookId);
+    if (!book) {
+        res.status(404).json({ error: 'Book with given bookId not found' });
+    }
+    const trades = await Trade.find({ book: book });
+    
+    res.status(200).send(trades);             
+}
+
 // exports.deleteById = async (req, res, next) => {
 //     // Get request data
 //     const bookId = req.params.id;
