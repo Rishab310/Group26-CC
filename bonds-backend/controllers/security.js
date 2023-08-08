@@ -65,7 +65,7 @@ exports.getSecurityById = async (req, res, next) => {
     const err = new Error("securityId is required!");
     next(err);
   }
-  Security.find({}).then((securities) => {
+  Security.find({_id : securityId}).then((securities) => {
     res.status(200).json(securities);
   })
 }

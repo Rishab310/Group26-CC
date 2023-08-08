@@ -7,6 +7,6 @@ const isAuth = require('../middlewares/is-auth');
 
 router.post('/createSecurity', securityController.createSecurity);
 router.get('/getAllSecurities', securityController.getAllSecurities);
-router.get('/getSecurityById', securityController.getSecurityById);
+router.post('/getSecurityById', securityController.getSecurityById);
 
 module.exports = router; 
