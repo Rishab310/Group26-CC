@@ -58,7 +58,7 @@ exports.create = async (req, res, next) => {
         return;
     }
     
-    if (isNaN(TradeDate)) {
+    if (isNaN(tradeDate)) {
         res.status(400).send({"error": "Trade date is invalid"});
         return;
     }
@@ -69,10 +69,10 @@ exports.create = async (req, res, next) => {
         securityId: security._id,  // currently not in models
         status: status,
         price: price,
-        buy_sell: Buy_sell,
-        tradeDate: TradeDate,
+        buy_sell: buy_sell,
+        tradeDate: tradeDate,
         settlementDate: null,
-        quantity: Quantity
+        quantity: quantity
     });
     
     const savedTrade = await newTrade.save();
