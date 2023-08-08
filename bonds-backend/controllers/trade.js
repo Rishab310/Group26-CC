@@ -11,7 +11,7 @@ exports.create = async (req, res, next) => {
     // Get request data
     const bookId = req.body.bookId;
     const counterpartyId = req.body.counterpartyId;
-    const securityId = req.body.securityId;  // currently not in models
+    const securityId = req.body.securityId;
     const status = "ACTIVE";
     const price = req.body.price;
     const buy_sell = req.body.buy_sell;
@@ -58,7 +58,7 @@ exports.create = async (req, res, next) => {
         return;
     }
     
-    if (isNaN(TradeDate)) {
+    if (isNaN(tradeDate)) {
         res.status(400).send({"error": "Trade date is invalid"});
         return;
     }
@@ -66,13 +66,13 @@ exports.create = async (req, res, next) => {
     const newTrade = new Trade({
         counterpartyId: counterParty._id,
         bookId: book._id,
-        securityId: security._id,  // currently not in models
+        securityId: security._id,
         status: status,
         price: price,
-        buy_sell: Buy_sell,
-        tradeDate: TradeDate,
+        buy_sell: buy_sell,
+        tradeDate: tradeDate.toISOString(),
         settlementDate: null,
-        quantity: Quantity
+        quantity: quantity
     });
     
     const savedTrade = await newTrade.save();
@@ -104,6 +104,43 @@ exports.getAll = async (req, res, next) => {
     const trades = await Trade.find({});
     
     res.status(200).send(trades);
+}
+
+exports.update = async (req, res, next) => {
+    // Get request data
+    const tradeId = req.params.id;
+    const status = req.body.status;
+    
+    if (!tradeId || !status) {
+        res.status(400).send({"error": "Trade Id and status required"});
+        return;
+    }
+    
+    let trade = await Trade.findOne({ _id: tradeId });
+    if (!trade) {
+        res.status(404).send({"error": "Trade does not exist"});
+        return;
+    }
+    
+    if (status !== "SETTLED" && status !== "OVERDUE") {
+        res.status(400).send({"error": "Invalid status value (ACTIVE, SETTLED or OVERDUE allowed)"});
+        return;
+    }
+    
+    if (trade[status] == "SETTLED" && status == "SETTLED") {
+        res.status(400).send({"error": "Trade already settled"});
+        return;
+    }
+    
+    trade.status = status;
+    // Settle active or overdue trade
+    if (status == "SETTLED") {
+        trade.settlementDate = Date.now();
+    }
+    
+    trade = await trade.save();
+    
+    res.status(201).send(trade);
 }
 
 exports.deleteById = async (req, res, next) => {

@@ -5,7 +5,7 @@ const bookSchema = new Schema({
         bookname: {
             type: String,
             required: true
-        },
+        }
     },
     {
         timestamps: true
