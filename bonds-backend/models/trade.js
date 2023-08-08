@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const tradeSchema = new Schema({
-        CounterpartyId: {
+        counterpartyId: {
             type: Schema.Types.ObjectId,
             ref: 'Counterparty',
             required: true
         },
         bookId: {
             type: Schema.Types.ObjectId,
-            ref: 'book',
+            ref: 'Book',
             required: true
         },
         status: {
@@ -20,20 +20,20 @@ const tradeSchema = new Schema({
             type: Number,
             required: true
         },
-        Buy_sell:{
-            type:String,
-            required:true
+        buy_sell:{
+            type: String,
+            required: true
         },
-        TradeDate:{
-            type:String,
-            required:true
+        tradeDate:{
+            type: String,
+            required: true
         },
-        SettlementDate:{
-            type:Date,
-            required:true
+        settlementDate:{
+            type: Date,
+            // required: true
         },
-        Quantity:{
-            type:Number,
+        quantity:{
+            type: Number,
             required: true
         }
     },
@@ -42,4 +42,4 @@ const tradeSchema = new Schema({
     }
 )
 
-module.exports = mongoose.model('trade', tradeSchema);
+module.exports = mongoose.model('Trade', tradeSchema);
