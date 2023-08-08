@@ -16,7 +16,7 @@ exports.create = async (req, res, next) => {
     const price = req.body.price;
     const buy_sell = req.body.buy_sell;
     const tradeDate = new Date(req.body.tradeDate);
-    const settlementDate = null; 
+    const settlementDate = req.body.settlementDate; 
     const quantity = req.body.quantity;
     
     if ([bookId, counterpartyId, securityId, price, buy_sell, tradeDate, quantity].some((val) => !val)) {
@@ -71,7 +71,7 @@ exports.create = async (req, res, next) => {
         price: price,
         buy_sell: buy_sell,
         tradeDate: tradeDate.toISOString(),
-        settlementDate: null,
+        settlementDate: settlementDate,
         quantity: quantity
     });
     
