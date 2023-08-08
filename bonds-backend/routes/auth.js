@@ -9,5 +9,6 @@ router.post('/signup', authController.signup)
 router.post('/signin', authController.signin);
 router.post('/verifyToken', authController.verifyToken);
 router.get('/getUsers', authController.getUsers);
-// router.post('/getUserById', authController.getUserById);
+router.get('/getAllUsers', authController.getAllUsers);
+router.post('/getUserById', authController.getUserById);
 module.exports = router; 

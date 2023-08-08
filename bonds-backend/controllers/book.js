@@ -17,7 +17,7 @@ exports.getAll = async (req, res, next) => {
 
 //create a new book
 exports.create = async (req, res, next) => {
-    const { bname, email } = req.body;
+    const { bname} = req.body;
  
     // Validate request data
     if (!bname) {
@@ -30,11 +30,11 @@ exports.create = async (req, res, next) => {
        return res.status(400).json({ error: 'Error: Book already exists' });
     }
     
-    const user = await User.findOne({ email: email });
-    if (!user) {
-       res.status(400).json({ error: 'Error: User with given email not found' });
-       return; 
-    }
+    // const user = await User.findOne({ email: email });
+    // if (!user) {
+    //    res.status(400).json({ error: 'Error: User with given email not found' });
+    //    return; 
+    // }
     
     let newBook = new Book({
         bookname: bname
@@ -46,21 +46,37 @@ exports.create = async (req, res, next) => {
        return; 
     }
     
-    console.log(newBook._id, user._id);
+    console.log(newBook._id);
     
     // Add book user for new book
-    let newBookUser = new BookUser({
-        bookId: newBook,
-        userId: user
-    });
+    // let newBookUser = new BookUser({
+    //     bookId: newBook,
+    //     userId: user
+    // });
     
-    newBookUser = await newBookUser.save();
-    if (!newBookUser) {
-        res.status(500).json({ error: 'Error while creating book user'});
-        return; 
-    }
+    // newBookUser = await newBookUser.save();
+    // if (!newBookUser) {
+    //     res.status(500).json({ error: 'Error while creating book user'});
+    //     return; 
+    // }
     
     res.status(201).json(newBook);
+}
+
+exports.getTrades = async (req, res, next) => {
+    const bookId = req.params.id;
+    if (!bookId) {
+        res.status(405).json({ error: 'Book id is required' });
+        return;
+    }
+    
+    const book = await Book.findById(bookId);
+    if (!book) {
+        res.status(404).json({ error: 'Book with given bookId not found' });
+    }
+    const trades = await Trade.find({ book: book });
+    
+    res.status(200).send(trades);             
 }
 
 // exports.deleteById = async (req, res, next) => {

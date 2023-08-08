@@ -1,11 +1,16 @@
 import React from 'react'
+import TableRow from './TableRow'
 
 function Tables() {
   return (
     <div className='container'>
+
+      <div className="row mb-3 mt-3">
+        <h1>Trades Information</h1>
+      </div>
         <div className="row mt-5" >
         <table className="table">
-  <thead>
+         <thead>
     <tr>
       <th scope="col">1</th>
       <th scope="col">Id</th>
@@ -17,34 +22,13 @@ function Tables() {
       <th scope="col">Buy_Sell</th>
       <th scope="col">TradeDate</th>
       <th scope="col">SettlementDate</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td scope="row">1</td>
-      <td scope="col">Id</td>
-      <td scope="col">CounterPartyId</td>
-      <td scope="col">SecurityId</td>
-      <td scope="col">Quantity</td>
-      <td scope="col">Status</td>
-      <td scope="col">Price</td>
-      <td scope="col">Buy_Sell</td>
-      <td scope="col">TradeDate</td>
-      <td scope="col">SettlementDate</td>
-    </tr>
-    <tr>
-    <td scope="row">2</td>
-      <td scope="col">Id</td>
-      <td scope="col">CounterPartyId</td>
-      <td scope="col">SecurityId</td>
-      <td scope="col">Quantity</td>
-      <td scope="col">Status</td>
-      <td scope="col">Price</td>
-      <td scope="col">Buy_Sell</td>
-      <td scope="col">TradeDate</td>
-      <td scope="col">SettlementDate</td>
-    </tr>
-    
+    <TableRow/>
+    <TableRow/>
+    <TableRow/>
   </tbody>
 </table>
     </div>
