@@ -12,12 +12,6 @@ exports.createSecurity = async (req, res, next) => {
   const type = req.body.type;
   const faceValue = new Date(req.body.faceValue);
   const status = req.body.status;
-
-  if ([ISIN, issuer, maturityDate, coupon, type, faceValue, status].some((val) => !val)) {
-    res.status(400).send({ "error": "Some parameters are missing in JSON data" });
-    return;
-  }
-
   if (!ISIN) {
     const err = new Error("ISIN is required!");
     next(err);
@@ -60,7 +54,17 @@ exports.createSecurity = async (req, res, next) => {
     .catch(err => next(err));
 }
 
-exports.getAllSecurity = async (req, res, next) => {
+exports.getAllSecurities = async (req, res, next) => {
+  Security.find({}).then((securities) => {
+    res.status(200).json(securities);
+  })
+}
+exports.getSecurityById = async (req, res, next) => {
+  const securityId = req.body.securityId;
+  if (!securityId) {
+    const err = new Error("securityId is required!");
+    next(err);
+  }
   Security.find({}).then((securities) => {
     res.status(200).json(securities);
   })
