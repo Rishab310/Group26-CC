@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const bookuserSchema = new Schema({
-        bookid: {
+const bookUserSchema = new Schema({
+        bookId: {
             type: Schema.Types.ObjectId,
-            ref: 'book',
+            ref: 'Book',
             required: true,
         },
-        userid: {
+        userId: {
             type: Schema.Types.ObjectId,
-            ref: 'user',
+            ref: 'User',
             required: true,
         }
     },
@@ -18,4 +18,4 @@ const bookuserSchema = new Schema({
     }
 )
 
-module.exports = mongoose.model('bookuser', bookuserSchema);
+module.exports = mongoose.model('BookUser', bookUserSchema);
