@@ -1,6 +1,13 @@
 import React from "react";
+import {useNavigate} from 'react-router-dom';
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+  const onLogout = () => {
+    navigate('/');
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userEmail");
+  }
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,6 +33,7 @@ export const Navbar = () => {
         <button
           className="btn btn-outline-success my-2 my-sm-0 logOutButton"
           type="submit"
+          onClick={onLogout}
         >
           Log Out
         </button>
