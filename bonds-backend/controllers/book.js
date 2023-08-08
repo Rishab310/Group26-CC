@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var ObjectId = require('mongoose').Types.ObjectId; 
 
 // Models
 const Book = require("../models/book");
-const BookUser = require("../models/bookuser");
 const Counterparty = require("../models/counterparty");
 const Security = require("../models/security");
 const Trade = require("../models/trade");
@@ -74,7 +74,7 @@ exports.getTrades = async (req, res, next) => {
     if (!book) {
         res.status(404).json({ error: 'Book with given bookId not found' });
     }
-    const trades = await Trade.find({ book: book });
+    const trades = await Trade.find({ bookId: new ObjectId(book) });
     
     res.status(200).send(trades);             
 }
