@@ -40,6 +40,10 @@ const tradeSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Security',
             required: true
+        },
+        reason:{
+            type:String,
+            required: false
         }
     },
     {
