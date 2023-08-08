@@ -39,6 +39,10 @@ const tradeSchema = new Schema({
         securityId: {
             type: Schema.Types.ObjectId,
             ref: 'Security',
+            // required: true
+        },
+        securityISIN: {
+            type: String,
             required: true
         },
         reason:{
