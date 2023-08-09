@@ -161,3 +161,13 @@ exports.deleteById = async (req, res, next) => {
     
     res.status(200).send(trade);
 }
+
+exports.getTradeByBookID = async (req, res, next) => {
+    // Get request data
+    const bookId = req.body.bookId;
+
+    Trade.find({bookId}).then((trades) => {
+        res.status(201).send(trades);
+    })
+      .catch(err => next(err));
+} 
