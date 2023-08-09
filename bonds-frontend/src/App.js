@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 function App() {
 
   return (
-    <div>
+    <div className='m-auto'>
       <Router>
             <Routes>
               <Route exact path="/" element={<Login />} />
