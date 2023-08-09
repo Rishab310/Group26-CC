@@ -10,6 +10,6 @@ router.get('/:id', tradeController.getById);
 router.get('/', tradeController.getAll);
 router.post('/:id/update', tradeController.update);
 router.post('/delete/:id', tradeController.deleteById);
-
+router.post('/getTradeByBookID',tradeController.getTradeByBookID);
 
 module.exports = router; 
