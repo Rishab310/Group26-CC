@@ -6,10 +6,10 @@ const tradeController = require('../controllers/trade');
 const isAuth = require('../middlewares/is-auth');
 
 router.post('/create', tradeController.create);
-router.get('/:id', isAuth, tradeController.getById);
-router.get('/', isAuth, tradeController.getAll);
-router.post('/:id/update', isAuth, tradeController.update);
-router.post('/delete/:id', isAuth, tradeController.deleteById);
+router.get('/:id', tradeController.getById);
+router.get('/', tradeController.getAll);
+router.post('/:id/update', tradeController.update);
+router.post('/delete/:id', tradeController.deleteById);
 
 
 module.exports = router; 
