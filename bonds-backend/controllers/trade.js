@@ -171,3 +171,69 @@ exports.getTradeByBookID = async (req, res, next) => {
     })
       .catch(err => next(err));
 } 
+
+exports.getallunsettled = async (req, res, next) => {
+    // Get request data
+    const bookId = req.body.bookId;
+    const Tradees = await Trade.find({bookId:bookId});
+    const maturedTrades = [];
+    for(const trade of Tradees){
+        const security = await Security.findOne({_id:trade.securityId});
+        if(security && security.status === 'Matured'){
+            maturedTrades.push(trade);
+        }
+    }
+    const count = maturedTrades.length;
+    // Trade.find({bookId}).then((trades) => {
+    //     res.status(201).send(trades);
+    //     trades.map(trade => {
+    //         Security.find({_id: trade.securityId})
+    //     })
+    // res.json(maturedTrades);
+    //     })  .catch(err => next(err));
+    res.json({maturedTrades, count});
+} 
+
+exports.requestSettlement = async (req, res, next) => {
+    const tradeId = req.body.tradeId;
+    const reason = req.body.reason;
+    
+    let trade = await Trade.findById(tradeId);
+    if (!trade) {
+        res.status(404).json({error: "Trade not found"});
+        return;
+    }
+    
+    trade.reason = reason;
+    //trade.status = "settled";
+    trade = await trade.save();
+    if (!trade) {
+        res.status(500).json({error: "Error sending settlement request"});
+    }
+    
+    res.status(200).json(trade);
+    return;
+}
+
+exports.CompleteSettlement = async (req, res, next) => {
+    const tradeId = req.body.tradeId;
+    //const reason = req.body.reason;
+    
+    let trade = await Trade.findById(tradeId);
+    if (!trade) {
+        res.status(404).json({error: "Trade not found"});
+        return;
+    }
+    
+    //trade.reason = reason;
+    const today = new Date();
+    trade.status = "settled";
+    trade.settlementDate = "2023-08-09";
+    trade = await trade.save();
+    if (!trade) {
+        res.status(500).json({error: "Error sending settlement request"});
+    }
+    
+    res.status(200).json(trade);
+    return;
+}

@@ -11,5 +11,9 @@ router.get('/', tradeController.getAll);
 router.post('/:id/update', tradeController.update);
 router.post('/delete/:id', tradeController.deleteById);
 router.post('/getTradeByBookID',tradeController.getTradeByBookID);
+router.post('/getallunsettled',tradeController.getallunsettled);
+router.post('/requestSettlement',tradeController.requestSettlement);
+router.post('/CompleteSettlement',tradeController.CompleteSettlement);
+
 
 module.exports = router; 
