@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TableRow from './TableRow'
+import axios from 'axios';
 
-function Tables() {
+function Tables({ bookId }) {
+  useEffect(() => {
+    console.log(bookId);
+    axios.post("http://localhost:5000/trade/getTradeByBookID", {
+      bookId
+    }).then((res) => {
+      console.log(res.data);
+      
+    }).catch((err) => console.log(err));
+  },[bookId])
   return (
     <div className='container'>
 
@@ -12,7 +22,7 @@ function Tables() {
         <table className="table">
          <thead>
     <tr>
-      <th scope="col">1</th>
+      <th scope="col">#</th>
       <th scope="col">Id</th>
       <th scope="col">CounterPartyId</th>
       <th scope="col">SecurityId</th>

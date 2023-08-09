@@ -36,7 +36,7 @@ export const ManagerDashboard = () => {
   
 
   const [view, setView] = useState(false);
-
+  const [book, setBook] = useState();
   return (
     <div>
       <Navbar/>
@@ -50,11 +50,14 @@ export const ManagerDashboard = () => {
           {card.map((card, index) => (
             <div key={index} className="col-md-4 mb-4">
               <CustomCard
+                bookId={card._id}
                 title={card.bookname}
                 imageUrl={card.imageUrl}
                 text={card.text}
                 buttonText={card.buttonText}
                 view={view}
+                book={book}
+                setBook={setBook}
                 setView={setView}
               />
             </div>
@@ -62,7 +65,7 @@ export const ManagerDashboard = () => {
         </div>
       </div>}
 
-      {view && <Tables />}
+      {view && <Tables bookId={book} />}
 
       <div className="container"></div>
     </div>

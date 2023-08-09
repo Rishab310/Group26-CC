@@ -14,7 +14,7 @@ function TableRow() {
     <td scope="col">Buy_Sell</td>
     <td scope="col">TradeDate</td>
     <td scope="col">SettlementDate</td>
-    <td><button class="btn btn-primary">Settle</button></td>
+    <td><button className="btn btn-primary">Settle</button></td>
       
 
   </tr>
