@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import CustomCard from "./CustomCard";
 import BookNumberAndTradesGraph from "./BookNumberAndTradesGraph";
@@ -7,6 +7,7 @@ import { useState } from "react";
 import Tables from "../tables/Tables";
 import { Navbar } from "./Navbar";
 import { SearchBar } from "./SearchBar";
+import axios from "axios";
 
 export const ManagerDashboard = () => {
   const bookNumberAndTradesData = [
@@ -22,50 +23,23 @@ export const ManagerDashboard = () => {
     { trade: "Trade 3", amount: 800, duration: 3 },
     // ... more data ...
   ];
-  const cardData = [
-    {
-      title: "Card 1",
-      imageUrl: "path_to_image_1.jpg",
-      text: "Content for card 1.",
-      buttonText: "Button 1",
-    },
-    {
-      title: "Card 2",
-      imageUrl: "path_to_image_2.jpg",
-      text: "Content for card 2.",
-      buttonText: "Button 2",
-    },
-    {
-      title: "Card 3",
-      imageUrl: "path_to_image_2.jpg",
-      text: "Content for card 3.",
-      buttonText: "Button 3",
-    },
-    {
-      title: "Card 4",
-      imageUrl: "path_to_image_2.jpg",
-      text: "Content for card 4.",
-      buttonText: "Button 4",
-    },
-    {
-      title: "Card 5",
-      imageUrl: "path_to_image_2.jpg",
-      text: "Content for card 5.",
-      buttonText: "Button 5",
-    },
-    {
-      title: "Card 6",
-      imageUrl: "path_to_image_2.jpg",
-      text: "Content for card 6.",
-      buttonText: "Button 6",
-    },
-    // ... Repeat for more cards
-  ];
+  const [card, setCard] = useState([]);
+  
+  useEffect(() => {
+    axios.post("http://localhost:5000/bookuser/getBooksByManager", {
+      userId : localStorage.getItem("userId")
+    }).then((res) => {
+      console.log(res.data);
+      setCard(res.data);
+    }).catch((err) => console.log(err));
+  },[])
+  
 
   const [view, setView] = useState(false);
   const role={
     isAdmin:false
   }
+  const [book, setBook] = useState();
   return (
     <div>
       <Navbar/>
@@ -76,14 +50,17 @@ export const ManagerDashboard = () => {
             <BookNumberAndTradesGraph data={bookNumberAndTradesData} />
             <AmountAndDurationGraph data={amountAndDurationData} />
           </div>
-          {cardData.map((card, index) => (
+          {card.map((card, index) => (
             <div key={index} className="col-md-4 mb-4">
               <CustomCard
-                title={card.title}
+                bookId={card._id}
+                title={card.bookname}
                 imageUrl={card.imageUrl}
                 text={card.text}
                 buttonText={card.buttonText}
                 view={view}
+                book={book}
+                setBook={setBook}
                 setView={setView}
               />
             </div>
@@ -91,7 +68,7 @@ export const ManagerDashboard = () => {
         </div>
       </div>}
 
-      {view && <Tables role={role}/>}
+      {view && <Tables role={role} bookId={book} />}
 
       <div className="container"></div>
     </div>

@@ -15,7 +15,7 @@ function TableRow(props) {
     <td scope="col"style={{textAlign:'center'}}>{props.trade.buy_sell}</td>
     <td scope="col"style={{textAlign:'center'}}>{props.trade.tradeDate}</td>
     <td scope="col"style={{textAlign:'center'}}>{props.trade.settlementDate}</td>
-    <td><button class="btn btn-primary" disabled={props.role.isAdmin || props.trade.settlementDate!=null}>Settle</button></td>
+    <td><button className="btn btn-primary" disabled={props.role.isAdmin || props.trade.settlementDate!=null}>Settle</button></td>
     <td>
       <select name="reason" id="" disabled={props.role.isAdmin || props.trade.settlementDate!=null}>
         <option value="Misbooking">Misbooking</option>

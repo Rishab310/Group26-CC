@@ -13,7 +13,7 @@ export const SearchBar = () => {
               aria-label="Search"
             ></input>
 
-            <button className="btn btn-sm btn-primary w-25" type="submit">
+            <button className="btn btn-sm btn-primary w-25" style={{height: '75%', alignSelf: 'center'}} type="submit">
               Search
             </button>
           </div>

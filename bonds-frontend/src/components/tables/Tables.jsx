@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TableRow from './TableRow'
+import axios from 'axios';
 
 function Tables(props) {
   const trade={
@@ -18,7 +19,16 @@ function Tables(props) {
     updatedAt:"13"
   }
 
-
+  useEffect(() => {
+    console.log(props.bookId);
+    axios.post("http://localhost:5000/trade/getTradeByBookID", {
+      bookId: props.bookId
+    }).then((res) => {
+      console.log(res.data);
+      
+    }).catch((err) => console.log(err));
+  },[props.bookId]);
+  
   return (
     <div className='container'>
 

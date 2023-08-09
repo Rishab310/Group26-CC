@@ -4,7 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'rec
 const AmountAndDurationGraph = ({ data }) => {
   return (
     <div className='mb-5 m-auto'>
-      <h2>Amount and Duration by Trade</h2>
+      <h2>Total Price of Trades in a Duration</h2>
       <BarChart width={400} height={300} data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="trade" />

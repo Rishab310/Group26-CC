@@ -1,9 +1,11 @@
 import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 
-const CustomCard = ({ title, imageUrl, text, buttonText, view, setView }) => {
+const CustomCard = ({ title, imageUrl, text, buttonText, view, setView, bookId, setBook  }) => {
   const onCardClickHandler = () => {
+    console.log(bookId);
     setView(true);
+    setBook(bookId);
   }
   return (
     <Card style={{ width: '18rem' }} >
