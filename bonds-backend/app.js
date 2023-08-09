@@ -18,12 +18,14 @@ const tradeRoutes = require('./routes/trade');
 const bookRoutes = require('./routes/book');
 const counterpartyRoutes = require('./routes/counterparty');
 const securityRoutes = require('./routes/security');
+const bookuserRoutes = require('./routes/bookuser');
 
 app.use('/auth', authRoutes);
 app.use('/trade', tradeRoutes);
 app.use('/book', bookRoutes);
 app.use('/counterparty', counterpartyRoutes);
 app.use('/security', securityRoutes);
+app.use('/bookuser',bookuserRoutes);
 
 
 app.use((req, res, next) => {

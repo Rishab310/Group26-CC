@@ -27,6 +27,7 @@ function Login() {
         console.log(res.data);
         localStorage.setItem("userToken",res.data.token);
         localStorage.setItem("userEmail",res.data.userEmail);
+        localStorage.setItem("userId",res.data.userId);
         if(res.data.isAdmin){
           navigate('/adminDashboard')
         }
