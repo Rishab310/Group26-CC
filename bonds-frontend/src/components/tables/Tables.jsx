@@ -1,7 +1,7 @@
 import React from 'react'
 import TableRow from './TableRow'
 
-function Tables() {
+function Tables(props) {
   const trade={
     _id:"1",
     counterpartyId:"2",
@@ -10,7 +10,7 @@ function Tables() {
     price:"5",
     buy_sell:"6",
     tradeDate:"7",
-    settlementDate:"8",
+    settlementDate:null,
     quantity:"9",
     securityId:"10",
     reason:"11",
@@ -39,11 +39,12 @@ function Tables() {
       <th scope="col" style={{textAlign:'center'}}>Buy_Sell</th>
       <th scope="col" style={{textAlign:'center'}}>TradeDate</th>
       <th scope="col" style={{textAlign:'center'}}>SettlementDate</th>
-      <th scope="col">Actions</th>
-    </tr>
+      <th scope="col" style={{textAlign:'center'}}>Actions</th>
+      <th scope="col" style={{textAlign:'center'}}>Reason</th>
+      </tr>
   </thead>
   <tbody>
-    <TableRow trade={trade}/>
+    <TableRow trade={trade} role={props.role}/>
     {/* <TableRow/>
     <TableRow/> */}
   </tbody>

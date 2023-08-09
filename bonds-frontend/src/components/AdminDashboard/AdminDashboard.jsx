@@ -35,6 +35,9 @@ export const AdminDashboard = () => {
   
 
   const [view, setView] = useState(false);
+  const role={
+    isAdmin:true
+  }
 
   return (
     <div>
@@ -61,7 +64,7 @@ export const AdminDashboard = () => {
         </div>
       </div>}
 
-      {view && <Tables />}
+      {view && <Tables role={role} />}
 
       <div className="container"></div>
     </div>
